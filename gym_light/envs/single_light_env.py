@@ -1,9 +1,8 @@
+import math
+
 from gym import spaces, logger
 from gym.utils import seeding
 import gym
-
-import math
-
 import numpy as np
 
 
@@ -189,9 +188,17 @@ class SingleLightEnv(gym.Env):
         return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
 
     def distance_from_light(self):
+        """
+        Computes the distance of the agent from the light
+        :return: distance
+        """
         return self.distance(self.current_position, self.light_source_pos)
 
     def _is_episode_terminated(self):
+        """
+        Returns a True if the episode is finished.
+        :return: True if the termination criteria is met, false otherwise
+        """
         # ignoring hysteresis for now
         dist = self.distance_from_light()
         done = self.current_energy <= self.min_energy \
